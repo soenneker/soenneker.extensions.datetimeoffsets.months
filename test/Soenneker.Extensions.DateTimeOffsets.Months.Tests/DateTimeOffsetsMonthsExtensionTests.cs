@@ -1,7 +1,6 @@
 using System;
 using AwesomeAssertions;
 using Soenneker.Tests.Unit;
-using Xunit;
 
 namespace Soenneker.Extensions.DateTimeOffsets.Months.Tests;
 
@@ -10,7 +9,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     private static readonly TimeSpan MinusFive = TimeSpan.FromHours(-5);
     private static readonly DateTimeOffset MidMarch2024 = new(2024, 3, 15, 14, 30, 0, MinusFive);
 
-    [Fact]
+    [Test]
     public void ToStartOfMonth_returns_first_moment_of_same_month_and_preserves_offset()
     {
         DateTimeOffset result = MidMarch2024.ToStartOfMonth();
@@ -24,7 +23,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Offset.Should().Be(MinusFive);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfMonth_returns_last_tick_of_same_month()
     {
         DateTimeOffset result = MidMarch2024.ToEndOfMonth();
@@ -39,7 +38,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(4);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfNextMonth_returns_first_moment_of_next_month()
     {
         DateTimeOffset result = MidMarch2024.ToStartOfNextMonth();
@@ -53,7 +52,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Offset.Should().Be(MinusFive);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfPreviousMonth_returns_first_moment_of_previous_month()
     {
         DateTimeOffset result = MidMarch2024.ToStartOfPreviousMonth();
@@ -67,7 +66,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Offset.Should().Be(MinusFive);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfPreviousMonth_returns_last_tick_before_current_month()
     {
         DateTimeOffset result = MidMarch2024.ToEndOfPreviousMonth();
@@ -82,7 +81,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(3);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfNextMonth_returns_last_tick_of_next_month()
     {
         DateTimeOffset result = MidMarch2024.ToEndOfNextMonth();
@@ -97,7 +96,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(5);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfTzMonth_returns_utc_start_of_month_in_specified_time_zone()
     {
         // 2024-03-15 19:30 UTC = 2024-03-15 14:30 -05:00
@@ -116,7 +115,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.UtcDateTime.Second.Should().Be(0);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfTzMonth_returns_utc_end_of_month_in_specified_time_zone()
     {
         var utcInstant = new DateTimeOffset(2024, 3, 15, 19, 30, 0, TimeSpan.Zero);
@@ -131,7 +130,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Year.Should().Be(2024);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfPreviousTzMonth_returns_utc_start_of_previous_month_in_tz()
     {
         var utcInstant = new DateTimeOffset(2024, 3, 15, 19, 30, 0, TimeSpan.Zero);
@@ -149,7 +148,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.UtcDateTime.Second.Should().Be(0);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfPreviousTzMonth_returns_utc_end_of_previous_month_in_tz()
     {
         var utcInstant = new DateTimeOffset(2024, 3, 15, 19, 30, 0, TimeSpan.Zero);
@@ -164,7 +163,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Year.Should().Be(2024);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfNextTzMonth_returns_utc_start_of_next_month_in_tz()
     {
         var utcInstant = new DateTimeOffset(2024, 3, 15, 19, 30, 0, TimeSpan.Zero);
@@ -179,7 +178,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.UtcDateTime.Day.Should().Be(1);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfNextTzMonth_returns_utc_end_of_next_month_in_tz()
     {
         var utcInstant = new DateTimeOffset(2024, 3, 15, 19, 30, 0, TimeSpan.Zero);
@@ -194,7 +193,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Year.Should().Be(2024);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfMonth_on_first_day_preserves_value()
     {
         var firstOfMonth = new DateTimeOffset(2024, 6, 1, 0, 0, 0, TimeSpan.Zero);
@@ -203,7 +202,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Should().Be(firstOfMonth);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfMonth_on_last_day_of_month_returns_same_month_start()
     {
         var lastOfMonth = new DateTimeOffset(2024, 6, 30, 23, 59, 59, TimeSpan.Zero);
@@ -219,7 +218,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
 
     // --- Weird / edge scenarios ---
 
-    [Fact]
+    [Test]
     public void ToStartOfNextMonth_December_returns_January_next_year()
     {
         var dec15 = new DateTimeOffset(2024, 12, 15, 12, 0, 0, TimeSpan.Zero);
@@ -233,7 +232,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Second.Should().Be(0);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfPreviousMonth_January_returns_December_previous_year()
     {
         var jan15 = new DateTimeOffset(2024, 1, 15, 12, 0, 0, TimeSpan.Zero);
@@ -244,7 +243,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.Day.Should().Be(1);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfMonth_February_leap_year_returns_29th()
     {
         var midFeb = new DateTimeOffset(2024, 2, 15, 12, 0, 0, TimeSpan.Zero);
@@ -259,7 +258,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(3);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfMonth_February_non_leap_year_returns_28th()
     {
         var midFeb = new DateTimeOffset(2023, 2, 15, 12, 0, 0, TimeSpan.Zero);
@@ -271,7 +270,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(3);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfMonth_30_day_month_returns_30th()
     {
         var midApril = new DateTimeOffset(2024, 4, 15, 12, 0, 0, TimeSpan.Zero);
@@ -282,7 +281,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(5);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfNextMonth_December_returns_end_of_January_next_year()
     {
         var dec15 = new DateTimeOffset(2024, 12, 15, 12, 0, 0, TimeSpan.Zero);
@@ -294,7 +293,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Month.Should().Be(2);
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfPreviousMonth_January_returns_end_of_December_previous_year()
     {
         var jan15 = new DateTimeOffset(2024, 1, 15, 12, 0, 0, TimeSpan.Zero);
@@ -307,7 +306,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         result.AddTicks(1).Year.Should().Be(2024);
     }
 
-    [Fact]
+    [Test]
     public void ToStartOfTzMonth_null_timezone_throws()
     {
         var utc = new DateTimeOffset(2024, 3, 15, 12, 0, 0, TimeSpan.Zero);
@@ -316,7 +315,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         act.Should().Throw<ArgumentNullException>();
     }
 
-    [Fact]
+    [Test]
     public void ToEndOfTzMonth_null_timezone_throws()
     {
         var utc = new DateTimeOffset(2024, 3, 15, 12, 0, 0, TimeSpan.Zero);
@@ -325,7 +324,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
         act.Should().Throw<ArgumentNullException>();
     }
 
-    [Fact]
+    [Test]
     public void Offset_preserved_through_all_non_tz_methods()
     {
         var withOffset = new DateTimeOffset(2024, 7, 4, 14, 30, 0, TimeSpan.FromHours(9));
@@ -347,7 +346,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     /// Correct "end of March in Eastern" is March 31 23:59:59.9999999 EDT = April 1 03:59:59.9999999 UTC.
     /// This test documents the expected correct behavior; it may fail if the extension has the DST bug.
     /// </summary>
-    [Fact]
+    [Test]
     public void ToEndOfTzMonth_DST_should_equal_last_tick_of_month_in_timezone()
     {
         TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(
@@ -373,7 +372,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     /// March 1 00:00 EST = 05:00 UTC. April 1 00:00 EDT = 04:00 UTC.
     /// So ToStartOfNextTzMonth(instant in March) should return April 1 04:00 UTC, not April 1 05:00 UTC.
     /// </summary>
-    [Fact]
+    [Test]
     public void ToStartOfNextTzMonth_DST_should_equal_first_tick_of_next_month_in_timezone()
     {
         TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(
@@ -397,7 +396,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     /// "March 1 00:00 Eastern" = March 1 05:00 UTC → May 1 05:00 UTC, -1 tick = May 1 04:59:59.9999999 UTC.
     /// Correct: April 30 23:59:59.9999999 EDT = May 1 03:59:59.9999999 UTC.
     /// </summary>
-    [Fact]
+    [Test]
     public void ToEndOfNextTzMonth_DST_should_equal_last_tick_of_next_month_in_timezone()
     {
         TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(
@@ -421,7 +420,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     /// In Eastern that's Feb 29 23:59:59.9999999 — correct! So ToEndOfPreviousTzMonth does NOT use AddMonths, it's correct.
     /// But we need to ensure the instant is right: Feb 29 23:59:59.9999999 EST = March 1 04:59:59.9999999 UTC.
     /// </summary>
-    [Fact]
+    [Test]
     public void ToEndOfPreviousTzMonth_DST_should_equal_last_tick_of_previous_month_in_timezone()
     {
         TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(
@@ -444,7 +443,7 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
     /// Implementation: ToStartOfTzMonth (March 1 00:00) + AddMonths(-1) = March 1 05:00 UTC - 1 month = Feb 1 05:00 UTC. Correct for EST.
     /// So this one might pass; the bug is only when the *next* month has different DST (AddMonths(1) or AddMonths(2)).
     /// </summary>
-    [Fact]
+    [Test]
     public void ToStartOfPreviousTzMonth_returns_first_tick_of_previous_month_in_timezone()
     {
         TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById(
