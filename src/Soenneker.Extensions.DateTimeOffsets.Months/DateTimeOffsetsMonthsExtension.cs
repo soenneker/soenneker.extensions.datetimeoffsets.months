@@ -16,6 +16,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// Returns the start of the month containing <paramref name="dateTimeOffset"/>.
     /// </summary>
     /// <remarks>No time zone conversion is performed and the offset is preserved.</remarks>
+    /// <returns>The start of the month containing <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfMonth(this DateTimeOffset dateTimeOffset)
@@ -27,6 +28,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// <remarks>
     /// Computed as one tick before the start of the next month. No time zone conversion is performed and the offset is preserved.
     /// </remarks>
+    /// <returns>The end of the month containing <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfMonth(this DateTimeOffset dateTimeOffset)
@@ -35,6 +37,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// <summary>
     /// Returns the start of the next month relative to <paramref name="dateTimeOffset"/>.
     /// </summary>
+    /// <returns>The start of the next month relative to <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfNextMonth(this DateTimeOffset dateTimeOffset)
@@ -43,6 +46,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// <summary>
     /// Returns the start of the previous month relative to <paramref name="dateTimeOffset"/>.
     /// </summary>
+    /// <returns>The start of the previous month relative to <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfPreviousMonth(this DateTimeOffset dateTimeOffset)
@@ -54,6 +58,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// <remarks>
     /// Computed as one tick before the start of the current month. No time zone conversion is performed and the offset is preserved.
     /// </remarks>
+    /// <returns>The end of the previous month relative to <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfPreviousMonth(this DateTimeOffset dateTimeOffset)
@@ -65,6 +70,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// <remarks>
     /// Computed as one tick before the start of the month after next. No time zone conversion is performed and the offset is preserved.
     /// </remarks>
+    /// <returns>The end of the next month relative to <paramref name="dateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfNextMonth(this DateTimeOffset dateTimeOffset)
@@ -78,6 +84,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// This computes the boundary as a local wall time (00:00 on the 1st) and maps it to UTC using the time zone's rules
     /// at that wall time (DST-safe).
     /// </remarks>
+    /// <returns>Computes the start of the month in <paramref name="tz"/> that contains the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
@@ -88,6 +95,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// returning the result as a UTC <see cref="DateTimeOffset"/>.
     /// </summary>
     /// <remarks>Computed as one tick before the start of the next month in <paramref name="tz"/> (DST-safe).</remarks>
+    /// <returns>Computes the end of the month in <paramref name="tz"/> that contains the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
@@ -97,6 +105,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// Computes the start of the previous month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>,
     /// returning the result as a UTC <see cref="DateTimeOffset"/>.
     /// </summary>
+    /// <returns>Computes the start of the previous month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfPreviousTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
@@ -107,6 +116,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// returning the result as a UTC <see cref="DateTimeOffset"/>.
     /// </summary>
     /// <remarks>Computed as one tick before the start of the current month in <paramref name="tz"/> (DST-safe).</remarks>
+    /// <returns>Computes the end of the previous month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfPreviousTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
@@ -116,6 +126,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// Computes the start of the next month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>,
     /// returning the result as a UTC <see cref="DateTimeOffset"/>.
     /// </summary>
+    /// <returns>Computes the start of the next month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToStartOfNextTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
@@ -126,6 +137,7 @@ public static class DateTimeOffsetsMonthsExtension
     /// returning the result as a UTC <see cref="DateTimeOffset"/>.
     /// </summary>
     /// <remarks>Computed as one tick before the start of the month after next in <paramref name="tz"/> (DST-safe).</remarks>
+    /// <returns>Computes the end of the next month in <paramref name="tz"/> relative to the instant <paramref name="utcInstant"/>, returning the result as a UTC <see cref="DateTimeOffset"/>.</returns>
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static DateTimeOffset ToEndOfNextTzMonth(this DateTimeOffset utcInstant, TimeZoneInfo tz)
