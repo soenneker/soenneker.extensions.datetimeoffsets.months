@@ -164,8 +164,24 @@ public static class DateTimeOffsetsMonthsExtension
         if (monthOffset != 0)
             localStart = localStart.AddMonths(monthOffset);
 
-        // Map that local boundary back to UTC using tz rules (DST-safe).
-        DateTime utcStart = TimeZoneInfo.ConvertTimeToUtc(localStart, tz); // Kind.Utc
+        // Some historical time-zone transitions skipped local midnight. In that case, the
+        // first representable instant in the month is the first valid local minute.
+        while (tz.IsInvalidTime(localStart))
+            localStart = localStart.AddMinutes(1);
+
+        DateTime utcStart;
+
+        if (tz.IsAmbiguousTime(localStart))
+        {
+            TimeSpan[] offsets = tz.GetAmbiguousTimeOffsets(localStart);
+            TimeSpan earlierOffset = offsets[0] >= offsets[1] ? offsets[0] : offsets[1];
+            utcStart = DateTime.SpecifyKind(localStart - earlierOffset, DateTimeKind.Utc);
+        }
+        else
+        {
+            utcStart = TimeZoneInfo.ConvertTimeToUtc(localStart, tz);
+        }
+
         return new DateTimeOffset(utcStart, TimeSpan.Zero);
     }
 }

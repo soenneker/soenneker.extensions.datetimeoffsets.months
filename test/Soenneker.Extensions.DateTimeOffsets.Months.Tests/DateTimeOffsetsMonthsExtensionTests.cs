@@ -458,4 +458,29 @@ public sealed class DateTimeOffsetsMonthsExtensionTests : UnitTest
 
         actual.UtcDateTime.Should().Be(expected.UtcDateTime);
     }
+
+    [Test]
+    public void ToStartOfNextTzMonth_advances_through_a_midnight_gap()
+    {
+        TimeZoneInfo timeZone = CreateMidnightGapTimeZone();
+        var marchInstant = new DateTimeOffset(2025, 3, 15, 12, 0, 0, TimeSpan.Zero);
+
+        DateTimeOffset result = marchInstant.ToStartOfNextTzMonth(timeZone);
+        DateTime localResult = TimeZoneInfo.ConvertTimeFromUtc(result.UtcDateTime, timeZone);
+
+        localResult.Should().Be(new DateTime(2025, 4, 1, 1, 0, 0, DateTimeKind.Unspecified));
+    }
+
+    private static TimeZoneInfo CreateMidnightGapTimeZone()
+    {
+        TimeZoneInfo.TransitionTime transitionStart = TimeZoneInfo.TransitionTime.CreateFixedDateRule(
+            new DateTime(1, 1, 1, 0, 0, 0), 4, 1);
+        TimeZoneInfo.TransitionTime transitionEnd = TimeZoneInfo.TransitionTime.CreateFixedDateRule(
+            new DateTime(1, 1, 1, 0, 0, 0), 10, 1);
+        TimeZoneInfo.AdjustmentRule rule = TimeZoneInfo.AdjustmentRule.CreateAdjustmentRule(
+            new DateTime(2025, 1, 1), new DateTime(2025, 12, 31), TimeSpan.FromHours(1), transitionStart, transitionEnd);
+
+        return TimeZoneInfo.CreateCustomTimeZone(
+            "MonthBoundaryGap", TimeSpan.Zero, "Month boundary gap", "Standard", "Daylight", [rule]);
+    }
 }
